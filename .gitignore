@@ -1,9 +1,5 @@
 HELP.md
 
-target/classes
-target/maven*
-target/a*
-target/surefire*
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
