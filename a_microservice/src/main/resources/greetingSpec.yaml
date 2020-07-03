@@ -1,0 +1,54 @@
+openapi: 3.0.0
+info:
+  title: Greeting Open Api Rest Controller
+  description: Greeting Open Api Rest Controller
+  version: 1.0.0
+servers:
+  - url: 'www.my-super-page.pl/api'
+paths:
+  '/hello':
+    get:
+      summary: Get greeting
+      operationId: hello
+      responses:
+        '200':
+          description: Greeting is OK
+          content:
+            application/json:
+              schema:
+                type: string
+    post:
+      summary: Send Greeting
+      operationId: sendGreeting
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Greeting'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Greeting Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Greeting:
+      type: object
+      properties:
+        name:
+         type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message
