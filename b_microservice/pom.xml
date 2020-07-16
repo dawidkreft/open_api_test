@@ -14,17 +14,15 @@
 	<name>B_microservice</name>
 	<description>OpenApiTest</description>
 	<properties>
-		<java.version>11</java.version>
-		<maven.compiler.source>11</maven.compiler.source>
-		<maven.compiler.target>11</maven.compiler.target>
+		<java.version>1.8</java.version>
 	</properties>
+
 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -36,13 +34,69 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openapitools</groupId>
+			<version>0.2.1</version>
+			<artifactId>jackson-databind-nullable</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>RELEASE</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>2.0.1.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.findbugs</groupId>
+			<artifactId>jsr305</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<version>4.3.1</version>
+				<executions>
+					<execution>
+						<id>greetingClient</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<generatorName>java</generatorName>
+							<inputSpec>${project.basedir}/src/main/resources/greetingClientSpec.yaml</inputSpec>
+							<modelPackage>com.example.demo.rest.model</modelPackage>
+							<apiPackage>com.example.demo.rest.api</apiPackage>
+							<invokerPackage>com.example.demo.rest.invoker</invokerPackage>
+							<library>resttemplate</library>
+							<configOptions>
+								<dateLibrary>java8</dateLibrary>
+								<java8>true</java8>
+								<serializableModel>true</serializableModel>
+							</configOptions>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
